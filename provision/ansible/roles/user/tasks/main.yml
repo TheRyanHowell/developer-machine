@@ -1,0 +1,17 @@
+---
+- name: Get user name
+  command: id -nu
+  changed_when: false
+  become: false
+  register: user_name_cmd
+
+- name: Get group name
+  command: id -ng
+  changed_when: false
+  become: false
+  register: group_name_cmd
+
+- name: Set user facts
+  set_fact:
+    login_user: "{{ user_name_cmd.stdout }}"
+    group_name: "{{ group_name_cmd.stdout }}"

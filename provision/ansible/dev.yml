@@ -1,0 +1,38 @@
+---
+- name: Gather User Facts
+  hosts: all
+  become: no
+  roles:
+      - user
+
+- name: Developer Machine (root)
+  hosts: all
+  become: yes
+  roles:
+    - common-packages
+    - ansible
+    - flatpak
+    - php
+    - composer
+    - docker
+    - package-manager-gui
+    - google-chrome
+    - atom
+  vars:
+      composer_home_owner: "{{ login_user }}"
+      composer_home_group: "{{ group_name }}"
+      composer_global_packages:
+          - { name: friendsofphp/php-cs-fixer }
+          - { name: pyrech/composer-changelogs }
+      nodejs_npm_global_packages:
+          - { name: yarn }
+
+
+- name: Developer Machine (user)
+  hosts: all
+  become: no
+  roles:
+      - nodejs
+      - phpstorm
+      - slack
+      - android-studio

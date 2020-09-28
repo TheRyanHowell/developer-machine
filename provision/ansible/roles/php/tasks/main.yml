@@ -1,0 +1,9 @@
+---
+- name: Install PHP (Ubuntu)
+  include: ubuntu.yml
+  when: ansible_distribution == 'Ubuntu'
+
+
+- name: Install PHP (Fedora)
+  include: fedora.yml
+  when: ansible_distribution == 'Fedora'

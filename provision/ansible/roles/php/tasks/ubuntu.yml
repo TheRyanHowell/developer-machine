@@ -1,0 +1,34 @@
+---
+- name: Install Ondrej PHP PPA
+  apt_repository:
+    repo: ppa:ondrej/php
+    filename: php
+    state: present
+    update_cache: yes
+
+- name: Install PHP modules
+  apt:
+    pkg:
+        - php7.2-apcu
+        - php7.2-cli
+        - php7.2-common
+        - php7.2-ctype
+        - php7.2-curl
+        - php7.2-dom
+        - php7.2-gd
+        - php7.2-iconv
+        - php7.2-imagick
+        - php7.2-intl
+        - php7.2-json
+        - php7.2-mbstring
+        - php7.2-opcache
+        - php7.2-xml
+        - php7.2-zip
+    state: latest
+
+- name: Set PHP FPM memoy limit
+  ini_file:
+    dest: /etc/php/7.2/cli/php.ini
+    section: PHP
+    option: memory_limit
+    value: "-1"

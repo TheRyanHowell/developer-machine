@@ -1,0 +1,8 @@
+---
+- name: composer
+  src: geerlingguy.composer
+  version: 1.8.0
+
+- name: nodejs
+  src: geerlingguy.nodejs
+  version: 5.1.1

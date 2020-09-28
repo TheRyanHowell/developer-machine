@@ -1,0 +1,4 @@
+---
+- name: Setup Package Manager GUI (Ubuntu)
+  include: ubuntu.yml
+  when: ansible_distribution == 'Ubuntu'

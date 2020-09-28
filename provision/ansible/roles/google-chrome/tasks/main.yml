@@ -1,0 +1,9 @@
+---
+- name: Install Google Chrome (Ubuntu)
+  include: ubuntu.yml
+  when: ansible_distribution == 'Ubuntu'
+
+
+- name: Install Google Chrome (Fedora)
+  include: fedora.yml
+  when: ansible_distribution == 'Fedora'

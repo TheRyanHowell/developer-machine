@@ -1,0 +1,13 @@
+---
+- name: Install Docker (Ubuntu)
+  include: ubuntu.yml
+  when: ansible_distribution == 'Ubuntu'
+
+
+- name: Install Docker (Fedora)
+  include: fedora.yml
+  when: ansible_distribution == 'Fedora'
+
+
+- name: Install Docker (Common)
+  include: common.yml

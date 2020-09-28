@@ -1,0 +1,16 @@
+---
+- name: dnf cache
+  dnf: update_cache=yes
+
+- name: Install common packages
+  dnf:
+    name:
+      - sudo
+      - vim
+      - htop
+      - git
+      - curl
+      - unzip
+      - python3-pip
+      - python3-virtualenv
+    state: latest

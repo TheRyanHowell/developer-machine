@@ -1,0 +1,9 @@
+---
+- name: Install common packages (Ubuntu)
+  include: ubuntu.yml
+  when: ansible_distribution == 'Ubuntu'
+
+
+- name: Install common packages (Fedora)
+  include: fedora.yml
+  when: ansible_distribution == 'Fedora'

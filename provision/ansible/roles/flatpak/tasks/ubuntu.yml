@@ -1,0 +1,32 @@
+---
+- name: Install Flatpak PPA
+  apt_repository:
+    repo: ppa:alexlarsson/flatpak
+    filename: flatpak
+    state: present
+    update_cache: yes
+
+- name: Install Flatpak
+  apt:
+    pkg: "flatpak"
+    state: latest
+
+- name: Check If Gnome Software Is Installed
+  package:
+    name: gnome-software
+    state: present
+  check_mode: true
+  register: gnome_check
+
+- name: Install Gnome Software Flatpak Plugin
+  apt:
+    pkg: "gnome-software-plugin-flatpak"
+    state: latest
+  when: not gnome_check.changed
+
+- name: Add the flathub flatpak repository remote
+  flatpak_remote:
+    name: flathub
+    state: present
+    flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+    method: system

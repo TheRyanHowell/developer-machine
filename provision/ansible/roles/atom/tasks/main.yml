@@ -1,0 +1,9 @@
+---
+- name: Install Atom (Ubuntu)
+  include: ubuntu.yml
+  when: ansible_distribution == 'Ubuntu'
+
+
+- name: Install Atom (Fedora)
+  include: fedora.yml
+  when: ansible_distribution == 'Fedora'

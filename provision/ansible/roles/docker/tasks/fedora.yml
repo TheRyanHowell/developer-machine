@@ -1,0 +1,27 @@
+---
+- name: Add Docker Repository
+  yum_repository:
+    name: docker
+    description: Docker YUM repo
+    baseurl: "https://download.docker.com/linux/fedora/{% if ansible_distribution_version|int >= 32 %}31{% else %}{{ ansible_distribution_version }}{% endif %}/$basearch/stable"
+    gpgkey: https://download.docker.com/linux/fedora/gpg
+    enabled: true
+    gpgcheck: true
+  register: dockerrepo_install
+
+- name: dnf cache
+  dnf: update_cache=yes
+  when: dockerrepo_install.changed
+
+- name: Install Docker
+  dnf:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+    state: latest
+  register: docker_install
+
+- name: Enable backward compatibility for Cgroups v1
+  shell: grubby --update-kernel=ALL --args="systemd.unified_cgroup_hierarchy=0"
+  when: docker_install.changed

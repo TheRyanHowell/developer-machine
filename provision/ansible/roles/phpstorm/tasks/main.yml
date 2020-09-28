@@ -1,0 +1,20 @@
+---
+- name: Add the flathub flatpak repository remote
+  flatpak_remote:
+    name: flathub
+    state: present
+    flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+    method: user
+
+- name: Install PHPStorm
+  flatpak:
+    name: com.jetbrains.PhpStorm
+    state: present
+    method: user
+
+- name: Increase max user watches
+  become: yes
+  sysctl:
+    name: fs.inotify.max_user_watches
+    value: "524288"
+    state: present

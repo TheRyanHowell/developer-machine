@@ -1,0 +1,16 @@
+---
+- name: apt cache
+  apt: update_cache=yes
+
+- name: Install common packages
+  apt:
+    name:
+      - sudo
+      - vim
+      - htop
+      - git
+      - curl
+      - unzip
+      - python3-pip
+      - python3-virtualenv
+    state: latest
