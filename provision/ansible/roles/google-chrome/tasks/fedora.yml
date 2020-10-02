@@ -17,3 +17,8 @@
   dnf:
     name: google-chrome-stable
     state: latest
+
+- name: Install Chromium Freeworld
+  dnf:
+    name: chromium-freeworld
+    state: latest
