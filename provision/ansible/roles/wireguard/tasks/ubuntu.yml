@@ -1,0 +1,5 @@
+---
+- name: Install Wireguard
+  apt:
+    pkg: wireguard
+    state: latest

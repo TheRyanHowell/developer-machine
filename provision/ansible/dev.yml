@@ -19,6 +19,7 @@
     - package-manager-gui
     - google-chrome
     - atom
+    - wireguard
   vars:
       composer_home_owner: "{{ login_user }}"
       composer_home_group: "{{ group_name }}"
