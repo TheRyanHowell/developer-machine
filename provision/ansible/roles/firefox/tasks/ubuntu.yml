@@ -1,0 +1,6 @@
+---
+- name: Remove Firefox
+  apt:
+    pkg: firefox
+    state: absent
+  become: true

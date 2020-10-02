@@ -1,0 +1,4 @@
+---
+- name: Install RPMFusion (Fedora)
+  include: fedora.yml
+  when: ansible_distribution == 'Fedora'

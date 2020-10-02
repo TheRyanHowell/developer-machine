@@ -18,6 +18,7 @@
     - package-manager-gui
     - google-chrome
     - atom
+    - rpmfusion
   vars:
       composer_home_owner: "{{ login_user }}"
       composer_home_group: "{{ group_name }}"
@@ -32,6 +33,7 @@
   hosts: all
   become: no
   roles:
+      - firefox
       - nodejs
       - phpstorm
       - slack
