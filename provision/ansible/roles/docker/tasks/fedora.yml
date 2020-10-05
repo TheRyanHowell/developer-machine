@@ -3,7 +3,7 @@
   yum_repository:
     name: docker
     description: Docker YUM repo
-    baseurl: "https://download.docker.com/linux/fedora/{% if ansible_distribution_version|int >= 32 %}31{% else %}{{ ansible_distribution_version }}{% endif %}/$basearch/stable"
+    baseurl: "https://download.docker.com/linux/fedora/{{ ansible_distribution_version }}/$basearch/stable"
     gpgkey: https://download.docker.com/linux/fedora/gpg
     enabled: true
     gpgcheck: true
@@ -25,3 +25,10 @@
 - name: Enable backward compatibility for Cgroups v1
   shell: grubby --update-kernel=ALL --args="systemd.unified_cgroup_hierarchy=0"
   when: docker_install.changed
+
+- name: Switch firewalld to iptables
+  lineinfile:
+    path: /etc/firewalld/firewalld.conf
+    regexp: '^FirewallBackend=nftables'
+    line: 'FirewallBackend=iptables'
+  notify: restart firewalld
