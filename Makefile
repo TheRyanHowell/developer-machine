@@ -6,8 +6,8 @@ SHELL := /bin/bash
 galaxy:
 	@ansible-galaxy install -fr provision/ansible/requirements.yml
 
-local:
+local: galaxy
 	@ansible-playbook -i provision/ansible/hosts/local provision/ansible/dev.yml -Kk
 
-remote:
+remote: galaxy
 	@ansible-playbook -i provision/ansible/hosts/remote provision/ansible/dev.yml -Kk

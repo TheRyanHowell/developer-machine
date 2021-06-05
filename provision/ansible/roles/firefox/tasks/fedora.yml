@@ -1,6 +1,0 @@
----
-- name: Remove Firefox
-  dnf:
-    name: firefox
-    state: absent
-  become: true

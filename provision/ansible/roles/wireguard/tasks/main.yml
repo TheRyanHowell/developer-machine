@@ -1,8 +1,4 @@
----
-- name: Install Wireguard (Ubuntu)
-  include: ubuntu.yml
-  when: ansible_distribution == 'Ubuntu'
-
-- name: Install Wireguard (Fedora)
-  include: fedora.yml
-  when: ansible_distribution == 'Fedora'
+- name: Install wireguard
+  dnf:
+    name: wireguard-tools
+    state: latest

@@ -14,36 +14,8 @@
     remote: flathub
   register: firefox_install
 
-- name: Switch from GLX to EGL based rendering for X11
-  shell: flatpak override --env=MOZ_X11_EGL=1 org.mozilla.firefox
+- name: Remove Firefox
+  dnf:
+    name: firefox
+    state: absent
   become: true
-  when: firefox_install.changed
-
-- name: Install org.freedesktop.Platform/x86_64/19.08
-  flatpak:
-    name: org.freedesktop.Platform/x86_64/19.08
-    state: present
-    method: user
-    remote: flathub
-
-- name: Install OpenH264
-  flatpak:
-    name: org.freedesktop.Platform.openh264/x86_64/19.08
-    state: present
-    method: user
-    remote: flathub
-
-- name: Install ffmpeg-full
-  flatpak:
-    name: org.freedesktop.Platform.ffmpeg-full/x86_64/19.08
-    state: present
-    method: user
-    remote: flathub
-
-- name: Remove Firefox (Ubuntu)
-  include: ubuntu.yml
-  when: ansible_distribution == 'Ubuntu'
-
-- name: Remove Firefox (Fedora)
-  include: fedora.yml
-  when: ansible_distribution == 'Fedora'

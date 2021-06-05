@@ -1,4 +1,0 @@
-- name: Install wireguard
-  dnf:
-    name: wireguard-tools
-    state: latest

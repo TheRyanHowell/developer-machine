@@ -1,13 +1,51 @@
 ---
-- name: Install Docker (Ubuntu)
-  include: ubuntu.yml
-  when: ansible_distribution == 'Ubuntu'
+- name: Add Docker Repository
+  yum_repository:
+    name: docker
+    description: Docker YUM repo
+    baseurl: "https://download.docker.com/linux/fedora/{{ ansible_distribution_version }}/$basearch/stable"
+    gpgkey: https://download.docker.com/linux/fedora/gpg
+    enabled: true
+    gpgcheck: true
+  register: dockerrepo_install
 
+- name: dnf cache
+  dnf: update_cache=yes
+  when: dockerrepo_install.changed
 
-- name: Install Docker (Fedora)
-  include: fedora.yml
-  when: ansible_distribution == 'Fedora'
+- name: Install Docker
+  dnf:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+    state: latest
+  register: docker_install
 
+- name: Ensure group "docker" exists
+  group:
+    name: docker
+    state: present
 
-- name: Install Docker (Common)
-  include: common.yml
+- name: Adding user to docker group
+  user:
+    name: "{{ login_user }}"
+    groups: docker
+    append: yes
+
+- name: Installing docker compose
+  pip:
+    name: docker-compose
+    state: latest
+
+- name: Enable docker
+  systemd:
+    name: docker
+    enabled: yes
+    state: started
+
+- name: Enable containerd
+  systemd:
+    name: containerd
+    enabled: yes
+    state: started

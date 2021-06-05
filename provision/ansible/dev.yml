@@ -16,7 +16,6 @@
     - php
     - composer
     - docker
-    - package-manager-gui
     - google-chrome
     - atom
     - wireguard
@@ -26,8 +25,6 @@
       composer_global_packages:
           - { name: friendsofphp/php-cs-fixer }
           - { name: pyrech/composer-changelogs }
-      nodejs_npm_global_packages:
-          - { name: yarn }
 
 
 - name: Developer Machine (user)

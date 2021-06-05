@@ -1,9 +1,36 @@
 ---
-- name: Install PHP (Ubuntu)
-  include: ubuntu.yml
-  when: ansible_distribution == 'Ubuntu'
+- name: Install Remi Repo
+  dnf:
+    name: "https://rpms.remirepo.net/fedora/remi-release-{{ ansible_distribution_version }}.rpm"
+    state: present
+    disable_gpg_check: true
 
+- name: Install PHP modules
+  dnf:
+    name:
+      - php74
+      - php74-php-apcu
+      - php74-php-cli
+      - php74-php-common
+      - php74-php-ctype
+      - php74-php-curl
+      - php74-php-dom
+      - php74-php-gd
+      - php74-php-iconv
+      - php74-php-imagick
+      - php74-php-intl
+      - php74-php-json
+      - php74-php-mbstring
+      - php74-php-opcache
+      - php74-php-xml
+      - php74-php-zip
+    state: latest
+    enablerepo: remi
 
-- name: Install PHP (Fedora)
-  include: fedora.yml
-  when: ansible_distribution == 'Fedora'
+- name: Create a symbolic link to set the default php version
+  file:
+    src: /usr/bin/php74
+    dest: /usr/bin/php
+    owner: root
+    group: root
+    state: link
